@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Grading System</title>
+    <script>
+    let students = [
+    { name: 'Scheeza', age: 21, marks: [98, 97, 95] },
+    { name: 'Alishba', age: 23, marks: [99, 97, 99] },
+    { name: 'Fatima', age: 22, marks: [78, 87, 75] },
+    { name: 'Abdullah', age: 21, marks: [85, 88, 90] },
+    { name: 'Awais', age: 22, marks: [80, 83, 79] },
+    { name: 'Alyan', age: 23, marks: [92, 90, 94] },
+    { name: 'Ali', age: 21, marks: [76, 81, 79] }
+];
+
+
+        let average = (marks) =>
+            marks.reduce((sum, val) => sum + val, 0) / marks.length;
+
+        function calGrade(avg) {
+            if (avg >= 90) return "A";
+            else if (avg >= 80) return "B";
+            else if (avg >= 70) return "C";
+            else return "F";
+        }
+
+        function searchByName() {
+            let n = prompt("Enter the name of the student to be found: ");
+            let found = students.find(stu => stu.name.toLowerCase() === n.toLowerCase());
+            if (found) {
+                alert("Student Found:", found);
+            } else {
+                alert("Student Not Found.");
+            }
+        }
+
+        function showStudentData() {
+            for (let stu of students) {
+                let avg = average(stu.marks);
+                let grade = calGrade(avg);
+                console.log(stu.name, "| Age:", stu.age, "| Marks:", stu.marks, "| Avg:", avg.toFixed(2), "| Grade:", grade);
+            }
+        }
+
+        function addStudent(name, age, marks) {
+            students.push({ name, age, marks });
+        }
+
+        function removeStudent() {
+            if (students.length > 0) {
+                let removed = students.pop();
+                console.log("Removed student:", removed.name);
+            } else {
+                console.log("The class is empty! No students found.");
+            }
+        }
+
+        function printMenu() {
+            console.log("--------- Welcome to Student Grading System ---------");
+            console.log("1. Add a student");
+            console.log("2. Remove the last student");
+            console.log("3. Search student by name");
+            console.log("4. Show all student data");
+            console.log("5. Exit");
+        }
+
+        let option;
+        alert("Welcome to the Student Grading System!!");
+        do {
+            printMenu();
+            option = parseInt(prompt("Enter the option:"));
+
+            if (option === 1) {
+                console.log("You have chosen option 1!");
+                let namee = prompt("Enter the name: ");
+                let agee = parseInt(prompt("Enter the age: "));
+                let m = prompt("Enter 3 marks separated by commas (e.g. 80,90,85):");
+                let mark = m.split(",").map(Number);
+                addStudent(namee, agee, mark);
+                console.log("Updated student data:");
+                showStudentData();
+                alert("Student added successfully!!");
+            }
+
+            else if (option === 2) {
+                console.log("You have chosen option 2!");
+                removeStudent();
+                alert("Student removed successfully!!");
+            }
+
+            else if (option === 3) {
+                searchByName();
+            }
+
+            else if (option === 4) {
+                console.log("All student data:");
+                alert("Student data is shown on console");
+                showStudentData();
+            }
+
+            else if (option === 5) {
+                alert("Exiting...Thank you!!");
+            }
+
+            else {
+                console.log("Invalid option. Please try again.");
+            }
+
+        } while (option !== 5);
+    </script>
+</head>
+<body>
+    <h1>Check the Console for Output</h1>
+</body>
+</html>
